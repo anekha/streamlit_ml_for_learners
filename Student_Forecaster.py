@@ -11,11 +11,14 @@ import requests
 st.set_page_config(page_title='Student Pass/Fail Forecaster', page_icon="https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books_23-2149342941.jpg?w=2000", layout="wide", initial_sidebar_state="auto", menu_items=None)
 
 def get_image():
-    url = "https://images.theconversation.com/files/45159/original/rptgtpxd-1396254731.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1356&h=668&fit=crop"
+    url = "https://s26162.pcdn.co/wp-content/uploads/sites/2/2022/05/Best-Reviewed-Books.jpeg"
     r = requests.get(url)
     return BytesIO(r.content)
 
-st.image(get_image(), use_column_width='auto')
+image = Image.open(get_image())
+new_image = image.resize((1400, 300))
+st.image(new_image)
+#st.image(get_image(), use_column_width='auto')
 
 def predict(sex = 'F',
             age = 18,
@@ -98,7 +101,7 @@ col3, col4, col5 = st.columns(3,gap="large")
 with col4:
     submitted = st.button('SUBMIT')
     if submitted:
-        with st.spinner('Wait for it...'):
+        with st.spinner('Calculating...'):
             time.sleep(5)
         answer = predict(sex, age, Medu, reason, traveltime, studytime, freetime, higher, failures, internet)
         if answer == "Pass":

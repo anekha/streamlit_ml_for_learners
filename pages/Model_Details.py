@@ -12,6 +12,8 @@ st.set_page_config(page_title='Model Details', page_icon="https://img.freepik.co
 
 st.title('Gradient Boosting Classifier')
 
+st.text('insert text about the model we have done')
+
 st.header('Pipeline')
 image = Image.open('pages/pipeline_image.png')
 #image = image.resize((300,400))

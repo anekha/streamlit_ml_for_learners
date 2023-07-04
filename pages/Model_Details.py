@@ -13,7 +13,7 @@ st.set_page_config(page_title='Model Details', page_icon="https://img.freepik.co
 st.title('Gradient Boosting Classifier')
 
 st.header('Pipeline')
-image = Image.open('/Users/anekha/code/anekha/streamlit_ml_for_learners/pages/Screenshot 2023-07-04 at 20.06.33.png')
+image = Image.open('/Screenshot 2023-07-04 at 20.06.33.png')
 #image = image.resize((300,400))
 st.image(image)
 

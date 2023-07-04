@@ -3,8 +3,19 @@ import pandas as pd
 import numpy as np
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 import joblib
+import time
+from PIL import Image
+from io import BytesIO
+import requests
 
 st.set_page_config(page_title='Student Pass/Fail Forecaster', page_icon="https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books_23-2149342941.jpg?w=2000", layout="wide", initial_sidebar_state="auto", menu_items=None)
+
+def get_image():
+    url = "https://images.theconversation.com/files/45159/original/rptgtpxd-1396254731.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1356&h=668&fit=crop"
+    r = requests.get(url)
+    return BytesIO(r.content)
+
+st.image(get_image(), use_column_width='auto')
 
 def predict(sex = 'F',
             age = 18,
@@ -43,21 +54,21 @@ def predict(sex = 'F',
     return result
 
 # Add a title and intro text
-st.title('Student Pass/Fail Forecaster')
+st.title(':violet[Student Pass/Fail Forecaster]')
 st.text('This is a web app to which predicts whether a high-school student will pass or fail depending on a set of variables')
 
-
+st.divider()
 # Create a section for the user inputs
-st.header('Create the student profile')
+st.header(':blue[Create the student profile]')
 
 col1, col2 = st.columns(2,gap="medium")
 
 with col1:
 
-    sex = st.selectbox('SEX:', ('M', 'F'), index=0)
+    sex = st.radio('SEX:', ('M', 'F'), index=0)
     age = st.number_input(label='AGE', value=18,max_value=21, min_value=15)
     higher = st.selectbox('Interested in higher education?', ('yes', 'no'), index=0)
-    reason = st.selectbox('Reason for choosing school:', ('reputation','course','home', 'other'), index=0)
+    reason = st.radio('Reason for choosing school:', ('reputation','course','home', 'other'), index=0)
     internet = st.selectbox('Internet connection at home', ('yes', 'no'), index=0)
 
 with col2:
@@ -66,24 +77,34 @@ with col2:
     freetime = st.select_slider('Weekly free time (1: very low, 5: very high):', (1, 2, 3, 4, 5),value=1)
     traveltime = st.select_slider('Travel time to school (1: <15mins, 2: 15-30mins, 3: 30-60mins, 4: >60mins):', (1, 2, 3, 4),value=1)
     failures = st.select_slider('Number of previous failures', (0,1,2,3),value=0)
-
+st.divider()
 # Create a section for the dataframe statistics
-st.header('Summary of student profile')
-
-data = pd.DataFrame({'Sex': [sex], 'Age': [age], 'Mother Education': [Medu], 'Reason for choosing school': [reason], 'Travel time': [traveltime], 'Study time': [studytime], 'Free time': [freetime], 'Plans for higher education': [higher], 'Number of failures': [failures], 'Access to internet': [internet]})
+st.header(':blue[Summary of student profile]')
+index = ['']
+data = pd.DataFrame({'Sex': [sex], 'Age': [age], 'Mother Education': [Medu],
+                     'Reason for choosing school': [reason], 'Travel time': [traveltime],
+                     'Study time': [studytime], 'Free time': [freetime],
+                     'Plans for higher education': [higher],
+                     'Number of failures': [failures], 'Access to internet': [internet]},
+                    index=index)
 
 st.write(data)
-
+st.divider()
 # Create a section for prediction
-st.header('Prediction of pass or fail for student')
+st.header(':blue[Prediction of pass or fail for student]')
 
 col3, col4, col5 = st.columns(3,gap="large")
 
 with col4:
     submitted = st.button('SUBMIT')
     if submitted:
+        with st.spinner('Wait for it...'):
+            time.sleep(5)
         answer = predict(sex, age, Medu, reason, traveltime, studytime, freetime, higher, failures, internet)
         if answer == "Pass":
             st.title(f'Prediction: :green[{answer}]')
+            st.balloons()
         else:
             st.title(f'Prediction: :red[{answer}]')
+
+st.divider()

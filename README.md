@@ -7,4 +7,4 @@ The model aims to predict whether a student will pass or fail based on their soc
 - [oh-my-zsh](http://ohmyz.sh/)
 - [Visual Studio Code](https://code.visualstudio.com/)
 - [git](https://git-scm.com/)
-- [streamlit][https://streamlit.io/cloud]
+- [streamlit](https://streamlit.io/cloud)

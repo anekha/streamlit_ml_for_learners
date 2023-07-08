@@ -17,4 +17,4 @@ st.text('I am a data enthusiast, 35 years old, and Operations Manager in an IT c
 
 
 st.header(':blue[Anekha Sokhal]')
-st.text('I am interested in using data to make more efficient and effective business decisions. After studying Maths and Stats at uni and dabbling in programming over the years, I now want to commit to a longer course to have a full round Data Science learning experience')
+st.text('After working as a data focused Energy Derivatives Trader for 7 years and subsequently working in global operations for a jewellery business, I wanted to bridge my experience in the data and business worlds by applying data science to making better business decisions. I studied MORSE (Maths, Operational Research, Statisics and Economics) at university and this recent 6 month course with Le Wagon has given me an invaluable deep dive into Data Science.')
